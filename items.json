@@ -1,0 +1,96 @@
+{
+  "fcccItems": [
+    {
+      "ItemCode": "3300000000435",
+      "ItemName": "ROOFING CORRUDEK ZINCALUME 21ft [6.40mtr] 26g - 0.422BMT-0.50TCT-26G G550 AZ150 [LABASA]"
+    },
+    {
+      "ItemCode": "4700000000014",
+      "ItemName": "POST PINE H4 TREATED 125mm x 4.0meter/len"
+    },
+    {
+      "ItemCode": "4700000000020",
+      "ItemName": "POST PINE H4 TREATED 150mm x 3.0meter/len HAND PEELED LABASA"
+    },
+    {
+      "ItemCode": "4700000000023",
+      "ItemName": "POST PINE H4 TREATED 150mm x 4.0meter/len HAND PEELED LABASA"
+    },
+    {
+      "ItemCode": "4700000000033",
+      "ItemName": "POST PINE H4 TREATED 200mm x 3.0meter/len HAND PEELED LABASA"
+    },
+    {
+      "ItemCode": "4700000000035",
+      "ItemName": "POST PINE H4 TREATED 200mm x 4.0meter/len HAND PEELED LABASA"
+    },
+    {
+      "ItemCode": "5700000000039",
+      "ItemName": "KAUVULA ROUGH SAWN H2 TREATED WET 200 x 200mm [8 x 8\"]"
+    },
+    {
+      "ItemCode": "5700000000048",
+      "ItemName": "LOCAL PINE BOXING ROUGH SAWN UNTREATED WET 100 x 50mm [4 x 2\"] WESTERN"
+    },
+    {
+      "ItemCode": "5700000000063",
+      "ItemName": "LOCAL PINE DECKING TREATED DRY 100 x 25mm [4 x 1\"]/5/2.4  Metres"
+    },
+    {
+      "ItemCode": "5700000000066",
+      "ItemName": "LOCAL PINE DRESSED H3 TREATED DRY 150 x 25mm [6 x 1\"]"
+    }
+  ],
+  "lockPriceItems": [
+    {
+      "ItemCode": "5800000001892",
+      "ItemName": "STANLEY CHALK REFILL BLUE 1.15kg/2.5lb [147917]",
+      "Price": "22.000000"
+    },
+    {
+      "ItemCode": "5800000001894",
+      "ItemName": "STANLEY CHALK REFILL BLUE 227G/8OZ [47-803]",
+      "Price": "6.500000"
+    },
+    {
+      "ItemCode": "5800000001921",
+      "ItemName": "STANLEY FATMAX BOX BEAM LEVEL MAGNETIC 1200mm [43549]",
+      "Price": "115.000000"
+    },
+    {
+      "ItemCode": "5800000001922",
+      "ItemName": "STANLEY FATMAX BOX BEAM LEVEL MAGNETIC 600mm [43525]",
+      "Price": "104.000000"
+    },
+    {
+      "ItemCode": "5800000001923",
+      "ItemName": "STANLEY FATMAX BOX LEVEL 1200mm [43-548]",
+      "Price": "88.000000"
+    },
+    {
+      "ItemCode": "5800000001851",
+      "ItemName": "STANLEY 12v SPOT SPRAYER 30Ltr, 3.8LPM, 40PSI M/P, 3.6Kg with 3.35mtr HOSE [STA30SS]",
+      "Price": "280.000000"
+    },
+    {
+      "ItemCode": "5800000001850",
+      "ItemName": "STANLEY 12v BROADCAST/SPOT SPRAYER 60Ltr, 8.3LPM, 70PSI M/P, 8.2Kg with 4.57mtr HOSE [STA60BS]",
+      "Price": "499.000000"
+    },
+    {
+      "ItemCode": "5800000001926",
+      "ItemName": "STANLEY FATMAX BOX LEVEL 900mm [43-536]",
+      "Price": "83.000000"
+    },
+    {
+      "ItemCode": "5800000001930",
+      "ItemName": "STANLEY FATMAX CHALK LINE REEL 30mtr (100') [47-140L]",
+      "Price": "34.000000"
+    },
+    {
+      "ItemCode": "5800000001931",
+      "ItemName": "STANLEY FATMAX CHALK LINE REEL ALUMINIUM 30m/100' [47480L]",
+      "Price": "39.000000"
+    }
+  ]
+}

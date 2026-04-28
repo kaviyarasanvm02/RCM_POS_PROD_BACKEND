@@ -1,0 +1,593 @@
+[
+  {
+    "COLUMN_NAME": "U_AccountNumber"
+  },
+  {
+    "COLUMN_NAME": "U_Address"
+  },
+  {
+    "COLUMN_NAME": "U_Block"
+  },
+  {
+    "COLUMN_NAME": "U_COD"
+  },
+  {
+    "COLUMN_NAME": "U_CustomerType"
+  },
+  {
+    "COLUMN_NAME": "U_EnableMail"
+  },
+  {
+    "COLUMN_NAME": "U_Fin_Status"
+  },
+  {
+    "COLUMN_NAME": "U_MailDtTime"
+  },
+  {
+    "COLUMN_NAME": "U_MailStatus"
+  },
+  {
+    "COLUMN_NAME": "U_OneTimeCustomer"
+  },
+  {
+    "COLUMN_NAME": "U_PaymentType"
+  },
+  {
+    "COLUMN_NAME": "U_SessionID"
+  },
+  {
+    "COLUMN_NAME": "U_SlpCode"
+  },
+  {
+    "COLUMN_NAME": "U_Street"
+  },
+  {
+    "COLUMN_NAME": "UnpaidBoE"
+  },
+  {
+    "COLUMN_NAME": "UpdateDate"
+  },
+  {
+    "COLUMN_NAME": "UpdateTS"
+  },
+  {
+    "COLUMN_NAME": "UseBilAddr"
+  },
+  {
+    "COLUMN_NAME": "UseShpdGd"
+  },
+  {
+    "COLUMN_NAME": "UserSign"
+  },
+  {
+    "COLUMN_NAME": "UserSign2"
+  },
+  {
+    "COLUMN_NAME": "UnpaidBoE"
+  },
+  {
+    "COLUMN_NAME": "UpdateDate"
+  },
+  {
+    "COLUMN_NAME": "UpdateTS"
+  },
+  {
+    "COLUMN_NAME": "UseBilAddr"
+  },
+  {
+    "COLUMN_NAME": "UseShpdGd"
+  },
+  {
+    "COLUMN_NAME": "UserSign"
+  },
+  {
+    "COLUMN_NAME": "UserSign2"
+  },
+  {
+    "COLUMN_NAME": "U_AccountNumber"
+  },
+  {
+    "COLUMN_NAME": "U_Address"
+  },
+  {
+    "COLUMN_NAME": "U_Block"
+  },
+  {
+    "COLUMN_NAME": "U_COD"
+  },
+  {
+    "COLUMN_NAME": "U_CustomerType"
+  },
+  {
+    "COLUMN_NAME": "U_EnableMail"
+  },
+  {
+    "COLUMN_NAME": "U_Fin_Status"
+  },
+  {
+    "COLUMN_NAME": "U_MailDtTime"
+  },
+  {
+    "COLUMN_NAME": "U_MailStatus"
+  },
+  {
+    "COLUMN_NAME": "U_OneTimeCustomer"
+  },
+  {
+    "COLUMN_NAME": "U_OverDueAC"
+  },
+  {
+    "COLUMN_NAME": "U_PaymentType"
+  },
+  {
+    "COLUMN_NAME": "U_SessionID"
+  },
+  {
+    "COLUMN_NAME": "U_SlpCode"
+  },
+  {
+    "COLUMN_NAME": "U_Street"
+  },
+  {
+    "COLUMN_NAME": "UnpaidBoE"
+  },
+  {
+    "COLUMN_NAME": "UpdateDate"
+  },
+  {
+    "COLUMN_NAME": "UpdateTS"
+  },
+  {
+    "COLUMN_NAME": "UseBilAddr"
+  },
+  {
+    "COLUMN_NAME": "UseShpdGd"
+  },
+  {
+    "COLUMN_NAME": "UserSign"
+  },
+  {
+    "COLUMN_NAME": "UserSign2"
+  },
+  {
+    "COLUMN_NAME": "UnpaidBoE"
+  },
+  {
+    "COLUMN_NAME": "UpdateDate"
+  },
+  {
+    "COLUMN_NAME": "UpdateTS"
+  },
+  {
+    "COLUMN_NAME": "UseBilAddr"
+  },
+  {
+    "COLUMN_NAME": "UseShpdGd"
+  },
+  {
+    "COLUMN_NAME": "UserSign"
+  },
+  {
+    "COLUMN_NAME": "UserSign2"
+  },
+  {
+    "COLUMN_NAME": "U_ASNMand"
+  },
+  {
+    "COLUMN_NAME": "U_CustCode"
+  },
+  {
+    "COLUMN_NAME": "U_EnableMail"
+  },
+  {
+    "COLUMN_NAME": "U_Fin_Status"
+  },
+  {
+    "COLUMN_NAME": "U_MailDtTime"
+  },
+  {
+    "COLUMN_NAME": "U_MailStatus"
+  },
+  {
+    "COLUMN_NAME": "U_SessionID"
+  },
+  {
+    "COLUMN_NAME": "U_SlpCode"
+  },
+  {
+    "COLUMN_NAME": "U_WhsMaster"
+  },
+  {
+    "COLUMN_NAME": "UnpaidBoE"
+  },
+  {
+    "COLUMN_NAME": "UpdateDate"
+  },
+  {
+    "COLUMN_NAME": "UpdateTS"
+  },
+  {
+    "COLUMN_NAME": "UseBilAddr"
+  },
+  {
+    "COLUMN_NAME": "UseShpdGd"
+  },
+  {
+    "COLUMN_NAME": "UserSign"
+  },
+  {
+    "COLUMN_NAME": "UserSign2"
+  },
+  {
+    "COLUMN_NAME": "U_AccountNumber"
+  },
+  {
+    "COLUMN_NAME": "U_Address"
+  },
+  {
+    "COLUMN_NAME": "U_Block"
+  },
+  {
+    "COLUMN_NAME": "U_COD"
+  },
+  {
+    "COLUMN_NAME": "U_CustomerType"
+  },
+  {
+    "COLUMN_NAME": "U_EnableMail"
+  },
+  {
+    "COLUMN_NAME": "U_Fin_Status"
+  },
+  {
+    "COLUMN_NAME": "U_MailDtTime"
+  },
+  {
+    "COLUMN_NAME": "U_MailStatus"
+  },
+  {
+    "COLUMN_NAME": "U_OneTimeCustomer"
+  },
+  {
+    "COLUMN_NAME": "U_OverDueAC"
+  },
+  {
+    "COLUMN_NAME": "U_PaymentType"
+  },
+  {
+    "COLUMN_NAME": "U_SessionID"
+  },
+  {
+    "COLUMN_NAME": "U_SlpCode"
+  },
+  {
+    "COLUMN_NAME": "U_Street"
+  },
+  {
+    "COLUMN_NAME": "UnpaidBoE"
+  },
+  {
+    "COLUMN_NAME": "UpdateDate"
+  },
+  {
+    "COLUMN_NAME": "UpdateTS"
+  },
+  {
+    "COLUMN_NAME": "UseBilAddr"
+  },
+  {
+    "COLUMN_NAME": "UseShpdGd"
+  },
+  {
+    "COLUMN_NAME": "UserSign"
+  },
+  {
+    "COLUMN_NAME": "UserSign2"
+  },
+  {
+    "COLUMN_NAME": "UnpaidBoE"
+  },
+  {
+    "COLUMN_NAME": "UpdateDate"
+  },
+  {
+    "COLUMN_NAME": "UpdateTS"
+  },
+  {
+    "COLUMN_NAME": "UseBilAddr"
+  },
+  {
+    "COLUMN_NAME": "UseShpdGd"
+  },
+  {
+    "COLUMN_NAME": "UserSign"
+  },
+  {
+    "COLUMN_NAME": "UserSign2"
+  },
+  {
+    "COLUMN_NAME": "U_AccountNumber"
+  },
+  {
+    "COLUMN_NAME": "U_Address"
+  },
+  {
+    "COLUMN_NAME": "U_Block"
+  },
+  {
+    "COLUMN_NAME": "U_COD"
+  },
+  {
+    "COLUMN_NAME": "U_CustomerType"
+  },
+  {
+    "COLUMN_NAME": "U_EnableMail"
+  },
+  {
+    "COLUMN_NAME": "U_Fin_Status"
+  },
+  {
+    "COLUMN_NAME": "U_MailDtTime"
+  },
+  {
+    "COLUMN_NAME": "U_MailStatus"
+  },
+  {
+    "COLUMN_NAME": "U_OneTimeCustomer"
+  },
+  {
+    "COLUMN_NAME": "U_OverDueAC"
+  },
+  {
+    "COLUMN_NAME": "U_PaymentType"
+  },
+  {
+    "COLUMN_NAME": "U_SessionID"
+  },
+  {
+    "COLUMN_NAME": "U_SlpCode"
+  },
+  {
+    "COLUMN_NAME": "U_Street"
+  },
+  {
+    "COLUMN_NAME": "UnpaidBoE"
+  },
+  {
+    "COLUMN_NAME": "UpdateDate"
+  },
+  {
+    "COLUMN_NAME": "UpdateTS"
+  },
+  {
+    "COLUMN_NAME": "UseBilAddr"
+  },
+  {
+    "COLUMN_NAME": "UseShpdGd"
+  },
+  {
+    "COLUMN_NAME": "UserSign"
+  },
+  {
+    "COLUMN_NAME": "UserSign2"
+  },
+  {
+    "COLUMN_NAME": "U_AccountNumber"
+  },
+  {
+    "COLUMN_NAME": "U_Address"
+  },
+  {
+    "COLUMN_NAME": "U_Block"
+  },
+  {
+    "COLUMN_NAME": "U_COD"
+  },
+  {
+    "COLUMN_NAME": "U_CustomerType"
+  },
+  {
+    "COLUMN_NAME": "U_EnableMail"
+  },
+  {
+    "COLUMN_NAME": "U_Fin_Status"
+  },
+  {
+    "COLUMN_NAME": "U_MailDtTime"
+  },
+  {
+    "COLUMN_NAME": "U_MailStatus"
+  },
+  {
+    "COLUMN_NAME": "U_OneTimeCustomer"
+  },
+  {
+    "COLUMN_NAME": "U_OverDueAC"
+  },
+  {
+    "COLUMN_NAME": "U_PaymentType"
+  },
+  {
+    "COLUMN_NAME": "U_SessionID"
+  },
+  {
+    "COLUMN_NAME": "U_SlpCode"
+  },
+  {
+    "COLUMN_NAME": "U_Street"
+  },
+  {
+    "COLUMN_NAME": "UnpaidBoE"
+  },
+  {
+    "COLUMN_NAME": "UpdateDate"
+  },
+  {
+    "COLUMN_NAME": "UpdateTS"
+  },
+  {
+    "COLUMN_NAME": "UseBilAddr"
+  },
+  {
+    "COLUMN_NAME": "UseShpdGd"
+  },
+  {
+    "COLUMN_NAME": "UserSign"
+  },
+  {
+    "COLUMN_NAME": "UserSign2"
+  },
+  {
+    "COLUMN_NAME": "U_AccountNumber"
+  },
+  {
+    "COLUMN_NAME": "U_Address"
+  },
+  {
+    "COLUMN_NAME": "U_Block"
+  },
+  {
+    "COLUMN_NAME": "U_COD"
+  },
+  {
+    "COLUMN_NAME": "U_CustomerType"
+  },
+  {
+    "COLUMN_NAME": "U_EnableMail"
+  },
+  {
+    "COLUMN_NAME": "U_Fin_Status"
+  },
+  {
+    "COLUMN_NAME": "U_MailDtTime"
+  },
+  {
+    "COLUMN_NAME": "U_MailStatus"
+  },
+  {
+    "COLUMN_NAME": "U_OneTimeCustomer"
+  },
+  {
+    "COLUMN_NAME": "U_OverDueAC"
+  },
+  {
+    "COLUMN_NAME": "U_PaymentType"
+  },
+  {
+    "COLUMN_NAME": "U_SessionID"
+  },
+  {
+    "COLUMN_NAME": "U_SlpCode"
+  },
+  {
+    "COLUMN_NAME": "U_Street"
+  },
+  {
+    "COLUMN_NAME": "UnpaidBoE"
+  },
+  {
+    "COLUMN_NAME": "UpdateDate"
+  },
+  {
+    "COLUMN_NAME": "UpdateTS"
+  },
+  {
+    "COLUMN_NAME": "UseBilAddr"
+  },
+  {
+    "COLUMN_NAME": "UseShpdGd"
+  },
+  {
+    "COLUMN_NAME": "UserSign"
+  },
+  {
+    "COLUMN_NAME": "UserSign2"
+  },
+  {
+    "COLUMN_NAME": "U_AccountNumber"
+  },
+  {
+    "COLUMN_NAME": "U_Address"
+  },
+  {
+    "COLUMN_NAME": "U_Block"
+  },
+  {
+    "COLUMN_NAME": "U_COD"
+  },
+  {
+    "COLUMN_NAME": "U_CustomerType"
+  },
+  {
+    "COLUMN_NAME": "U_EnableMail"
+  },
+  {
+    "COLUMN_NAME": "U_Fin_Status"
+  },
+  {
+    "COLUMN_NAME": "U_MailDtTime"
+  },
+  {
+    "COLUMN_NAME": "U_MailStatus"
+  },
+  {
+    "COLUMN_NAME": "U_OneTimeCustomer"
+  },
+  {
+    "COLUMN_NAME": "U_PaymentType"
+  },
+  {
+    "COLUMN_NAME": "U_SessionID"
+  },
+  {
+    "COLUMN_NAME": "U_SlpCode"
+  },
+  {
+    "COLUMN_NAME": "U_Street"
+  },
+  {
+    "COLUMN_NAME": "U_WhsMaster"
+  },
+  {
+    "COLUMN_NAME": "UnpaidBoE"
+  },
+  {
+    "COLUMN_NAME": "UpdateDate"
+  },
+  {
+    "COLUMN_NAME": "UpdateTS"
+  },
+  {
+    "COLUMN_NAME": "UseBilAddr"
+  },
+  {
+    "COLUMN_NAME": "UseShpdGd"
+  },
+  {
+    "COLUMN_NAME": "UserSign"
+  },
+  {
+    "COLUMN_NAME": "UserSign2"
+  },
+  {
+    "COLUMN_NAME": "UnpaidBoE"
+  },
+  {
+    "COLUMN_NAME": "UpdateDate"
+  },
+  {
+    "COLUMN_NAME": "UpdateTS"
+  },
+  {
+    "COLUMN_NAME": "UseBilAddr"
+  },
+  {
+    "COLUMN_NAME": "UseShpdGd"
+  },
+  {
+    "COLUMN_NAME": "UserSign"
+  },
+  {
+    "COLUMN_NAME": "UserSign2"
+  }
+]
