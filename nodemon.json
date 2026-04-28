@@ -1,0 +1,11 @@
+{
+  "ignore": [
+    "sessions/*",
+    "logs/*",
+    "tmp/*",
+    "query_result.txt",
+    "query_output.txt",
+    "user_group_check.txt",
+    "*.log"
+  ]
+}
