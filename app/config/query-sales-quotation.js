@@ -98,7 +98,6 @@ exports.timberTallyItemsQuery =
     T0."Code" AS "U_Length",
     IFNULL(T1."BHeight1", 1) AS "U_Height",
     IFNULL(T1."BWidth1", 1) AS "U_Width",
-    T2."U_Batch",
     T2."BinAbsEntry",
     T2."BinCode",
     IFNULL(T2."U_AvlPcs", 0) AS "U_AvlPcs",
@@ -108,10 +107,9 @@ LEFT JOIN ${dbCreds.CompanyDB}.OITM T1 ON T1."ItemCode" = ?
 LEFT JOIN (
     SELECT 
         T0."ItemCode",
-        T0."DistNumber" AS "U_Batch",
         T0."U_Length",
-        (IFNULL(B."OnHandQty", IFNULL(T1."Quantity", 0)) - IFNULL(T1."CommitQty", 0)) AS "U_AvlQty",
-        ROUND(
+        SUM((IFNULL(B."OnHandQty", IFNULL(T1."Quantity", 0)) - IFNULL(T1."CommitQty", 0))) AS "U_AvlQty",
+        SUM(ROUND(
             (IFNULL(B."OnHandQty", IFNULL(T1."Quantity", 0)) - IFNULL(T1."CommitQty", 0)) / 
             CASE 
                 WHEN (IFNULL(T0."U_Height", 0) > 0 
@@ -120,7 +118,7 @@ LEFT JOIN (
                 THEN ((T0."U_Height" / 1000) * (T0."U_Width" / 1000) * T0."U_Length") 
                 ELSE 1 
             END, 
-        5) AS "U_AvlPcs",
+        5)) AS "U_AvlPcs",
         C."AbsEntry" AS "BinAbsEntry",
         C."BinCode"
     FROM ${dbCreds.CompanyDB}."OBTN" T0
@@ -129,6 +127,11 @@ LEFT JOIN (
     LEFT JOIN ${dbCreds.CompanyDB}."OBIN" C ON B."BinAbs" = C."AbsEntry" AND B."WhsCode" = C."WhsCode"
     WHERE T0."ItemCode" = ?
     AND C."BinCode" = 'B203-TIMBER'
+    GROUP BY 
+        T0."ItemCode",
+        T0."U_Length",
+        C."AbsEntry",
+        C."BinCode"
 ) T2 ON T0."Code" = T2."U_Length"
 ORDER BY T0."Code" ASC`;
 
