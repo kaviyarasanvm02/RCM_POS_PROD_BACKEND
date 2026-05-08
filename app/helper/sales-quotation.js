@@ -94,10 +94,28 @@ exports.updateReprint = (docEntry) => {
  */
 exports.getTimberTallyItems = (req) => {
   try {
-    const { itemCode } = req;
+    const { itemCode, whsCode, binCode } = req;
+    console.log("binCode from req:", binCode);
     const sql = query.timberTallyItemsQuery;
-    console.log("getTimberTallyItems - sql: ", sql, [itemCode]);
-    const rows = dbHelper.executeWithValues(sql, [itemCode, itemCode]);
+    // Pass parameters for: OITM join, OBTN itemCode, WhsCode (x3), BinCode (x3)
+    const params = [
+      itemCode, 
+      itemCode, 
+      whsCode || "", whsCode || "", 
+      binCode || "", binCode || ""
+    ];
+    console.log("getTimberTallyItems - params: ", params);
+    const rows = dbHelper.executeWithValues(sql, params);
+    console.log("getTimberTallyItems - rows returned: ", rows?.length || 0);
+    if (rows && rows.length > 0) {
+      console.log("getTimberTallyItems - results sample: ", JSON.stringify(rows[0]));
+    }
+    
+    // Add debug log for raw warehouse stock
+    if (rows && rows.length > 0 && rows[0].U_AvlPcs === "0") {
+        console.log("DEBUG - Found zero pieces. Row sample:", JSON.stringify(rows.find(r => r.U_AvlPcs !== "0") || rows[0]));
+    }
+
     return rows;
   }
   catch (err) {
