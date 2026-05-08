@@ -19,7 +19,7 @@ const dbCreds = {
 };
 
 const dbConfig = {
-  //serverNode: "your host:your port",
+  serverNode: `${process.env.HANA_HOST}:${process.env.HANA_PORT}`,
   host: process.env.HANA_HOST,
   port: process.env.HANA_PORT,
   user: process.env.HANA_USER,

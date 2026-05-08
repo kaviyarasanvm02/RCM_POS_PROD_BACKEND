@@ -94,14 +94,14 @@ WHERE T0."DocEntry" = ?`;
 
 exports.timberTallyItemsQuery =
   `SELECT 
-    T1."ItemCode",
+    MAX(T1."ItemCode") AS "ItemCode",
     T0."Code" AS "U_Length",
-    IFNULL(T1."BHeight1", 1) AS "U_Height",
-    IFNULL(T1."BWidth1", 1) AS "U_Width",
-    T2."BinAbsEntry",
-    T2."BinCode",
-    IFNULL(T2."U_AvlPcs", 0) AS "U_AvlPcs",
-    IFNULL(T2."U_AvlQty", 0) AS "U_AvlQty"
+    MAX(IFNULL(T1."BHeight1", 1)) AS "U_Height",
+    MAX(IFNULL(T1."BWidth1", 1)) AS "U_Width",
+    MAX(T2."BinAbsEntry") AS "BinAbsEntry",
+    MAX(T2."BinCode") AS "BinCode",
+    SUM(IFNULL(T2."U_AvlPcs", 0)) AS "U_AvlPcs",
+    SUM(IFNULL(T2."U_AvlQty", 0)) AS "U_AvlQty"
 FROM ${dbCreds.CompanyDB}."@LENGTHMASTER" T0
 LEFT JOIN ${dbCreds.CompanyDB}.OITM T1 ON T1."ItemCode" = ?
 LEFT JOIN (
@@ -126,14 +126,16 @@ LEFT JOIN (
     LEFT JOIN ${dbCreds.CompanyDB}."OBBQ" B ON T0."AbsEntry" = B."SnBMDAbs" AND T0."ItemCode" = B."ItemCode" AND B."OnHandQty" > 0 AND T1."WhsCode" = B."WhsCode"
     LEFT JOIN ${dbCreds.CompanyDB}."OBIN" C ON B."BinAbs" = C."AbsEntry" AND B."WhsCode" = C."WhsCode"
     WHERE T0."ItemCode" = ?
-    AND C."BinCode" = 'B203-TIMBER'
+    AND (T1."WhsCode" = ? OR ? = '')
+    AND (? = '' OR C."BinCode" = ?)
     GROUP BY 
         T0."ItemCode",
         T0."U_Length",
         C."AbsEntry",
         C."BinCode"
 ) T2 ON T0."Code" = T2."U_Length"
-ORDER BY T0."Code" ASC`;
+GROUP BY T0."Code"
+ORDER BY CAST(T0."Code" AS DOUBLE) ASC`;
 
 exports.tallySheetRowsQuery = `SELECT T0."LineId", T0."U_Length", T0."U_Width", T0."U_Height", T0."U_Pieces" AS "U_NoOfPcs", T0."U_Qty" FROM ${dbCreds.CompanyDB}."@TSH1" T0 WHERE T0."DocEntry" = ?`;
 
