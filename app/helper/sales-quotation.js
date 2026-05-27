@@ -96,14 +96,12 @@ exports.getTimberTallyItems = (req) => {
   try {
     const { itemCode, whsCode, binCode } = req;
     console.log("binCode from req:", binCode);
-    const sql = query.timberTallyItemsQuery;
-    // Pass parameters for: OITM join, OBTN itemCode, WhsCode (x3), BinCode (x3)
-    const params = [
-      itemCode, 
-      itemCode, 
-      whsCode || "", whsCode || "", 
-      binCode || "", binCode || ""
-    ];
+    const sql = query.buildTimberTallyItemsQuery(whsCode, binCode);
+    // Pass parameters for: OITM join, OBTN itemCode, WhsCode (if present), BinCode (if present)
+    const params = [itemCode, itemCode];
+    if (whsCode) params.push(whsCode);
+    if (binCode) params.push(binCode);
+    
     console.log("getTimberTallyItems - params: ", params);
     const rows = dbHelper.executeWithValues(sql, params);
     console.log("getTimberTallyItems - rows returned: ", rows?.length || 0);

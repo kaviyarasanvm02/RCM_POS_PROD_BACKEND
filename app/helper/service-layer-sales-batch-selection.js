@@ -268,11 +268,11 @@ exports.createSalesBatchSelection = async(request, invoiceDocEntry, invoiceDocNu
             const response = await serviceLayerAPI.post(serviceLayerURI, item);
             //const response = await axios.post('/OSBS', item);
             // Extract required fields from the response
-            const { DocNum, LineNum, U_ItemCode } = response.data;
+            const { DocNum, U_LineNum, U_ItemCode } = response.data;
             console.log("*** SalesBatchSelection response:**** "+JSON.stringify(response.data));
-            results.push({ DocNum, LineNum, U_ItemCode });
+            results.push({ DocNum, U_LineNum: U_LineNum !== undefined && U_LineNum !== null ? U_LineNum : item.U_LineNum, U_ItemCode });
         } catch (error) {
-            console.error(`Error creating OSBS record for item ${item.ItemCode}:`, error.response?.data?.error?.message?.value);
+            console.error(`Error creating OSBS record for item ${item.U_ItemCode || item.ItemCode}:`, error.response?.data?.error?.message?.value);
         }
     }
 

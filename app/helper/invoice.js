@@ -326,9 +326,9 @@ exports.updateReprint = (docEntry) => {
 
 exports.updateSalesBatchSelection = (item, docEntry) => {
   try {
-    console.log("updateSalesBatchSelection %s", item.DocNum, docEntry, item.U_ItemCode);
+    console.log("updateSalesBatchSelection %s %s %s %s", item.DocNum, docEntry, item.U_ItemCode, item.U_LineNum);
     if (item) {
-      const rows = dbHelper.executeWithValues(query.updateSalesBatchSelectionDocNum, [item.DocNum, docEntry, item.U_ItemCode]);
+      const rows = dbHelper.executeWithValues(query.updateSalesBatchSelectionDocNum, [item.DocNum, docEntry, item.U_ItemCode, item.U_LineNum]);
       console.log("updateSalesBatchSelection %s", JSON.stringify(rows));
       return true;
     }

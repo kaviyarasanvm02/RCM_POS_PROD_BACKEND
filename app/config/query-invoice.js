@@ -110,7 +110,7 @@ exports.invoiceDeliveyCodeData =
 exports.updateSalesBatchSelectionDocNum =
   `UPDATE ${dbCreds.CompanyDB}.INV1 T1 SET
     T1."U_DocNum" = ?
-  WHERE T1."DocEntry" = ? AND T1."ItemCode" = ?`;
+  WHERE T1."DocEntry" = ? AND T1."ItemCode" = ? AND T1."LineNum" = ?`;
 
 // Here we get the unique id from the invoice
 exports.getUniqueId =
