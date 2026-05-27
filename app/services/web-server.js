@@ -71,10 +71,8 @@ const initialize = async () => {
       console.log(`Number of CPUs is ${totalCPUs}`);
       console.log(`Master ${process.pid} is running`);
 
-      //Fork workers
-      for (let i = 0; i < totalCPUs; i++) {
-        cluster.fork();
-      }
+      //Fork workers - Temporarily fork only 1 worker to prevent SAP HANA session exhaustion
+      cluster.fork();
 
       cluster.on('exit', (worker, code, signal) => {
         console.log(`worker ${worker.process.pid} died`);

@@ -92,8 +92,8 @@ exports.updateSalesQuotationReprintStatus =
   T0."U_IsReprinted" = 'Y'
 WHERE T0."DocEntry" = ?`;
 
-exports.timberTallyItemsQuery =
-  `SELECT 
+exports.buildTimberTallyItemsQuery = (whsCode, binCode) => {
+  let query = `SELECT 
     MAX(T1."ItemCode") AS "ItemCode",
     T0."Code" AS "U_Length",
     MAX(IFNULL(T1."BHeight1", 1)) AS "U_Height",
@@ -125,10 +125,16 @@ LEFT JOIN (
     LEFT JOIN ${dbCreds.CompanyDB}."OBTQ" T1 ON T0."SysNumber" = T1."SysNumber" AND T0."ItemCode" = T1."ItemCode"
     LEFT JOIN ${dbCreds.CompanyDB}."OBBQ" B ON T0."AbsEntry" = B."SnBMDAbs" AND T0."ItemCode" = B."ItemCode" AND B."OnHandQty" > 0 AND T1."WhsCode" = B."WhsCode"
     LEFT JOIN ${dbCreds.CompanyDB}."OBIN" C ON B."BinAbs" = C."AbsEntry" AND B."WhsCode" = C."WhsCode"
-    WHERE T0."ItemCode" = ?
-    AND (T1."WhsCode" = ? OR ? = '')
-    AND (? = '' OR C."BinCode" = ?)
-    GROUP BY 
+    WHERE T0."ItemCode" = ?`;
+
+  if (whsCode) {
+    query += `\n    AND T1."WhsCode" = ?`;
+  }
+  if (binCode) {
+    query += `\n    AND C."BinCode" = ?`;
+  }
+
+  query += `\n    GROUP BY 
         T0."ItemCode",
         T0."U_Length",
         C."AbsEntry",
@@ -136,6 +142,9 @@ LEFT JOIN (
 ) T2 ON T0."Code" = T2."U_Length"
 GROUP BY T0."Code"
 ORDER BY CAST(T0."Code" AS DOUBLE) ASC`;
+
+  return query;
+};
 
 exports.tallySheetRowsQuery = `SELECT T0."LineId", T0."U_Length", T0."U_Width", T0."U_Height", T0."U_Pieces" AS "U_NoOfPcs", T0."U_Qty" FROM ${dbCreds.CompanyDB}."@TSH1" T0 WHERE T0."DocEntry" = ?`;
 

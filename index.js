@@ -55,3 +55,8 @@ process.on('uncaughtException', err => {
  
   shutdown(err);
 });
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Promise Rejection at:', promise, 'reason:', reason);
+  // Log the error, but don't exit to prevent unhandled service crashes
+});

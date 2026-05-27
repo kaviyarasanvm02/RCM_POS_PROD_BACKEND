@@ -103,7 +103,7 @@ const create = async (req, res, next) => {
         ipSeriesPromise = getNumberingSeries(objectCodes[portalModules.INCOMING_PAYMENT], req.session.userSessionLog.storeLocation);
       }
 
-      const [cookie, seriesResponse, uniqueResponse, ipSeriesResponse] = await Promise.all([cookiePromise, seriesPromise, uniquePromise, ipSeriesPromise]);
+      let [cookie, seriesResponse, uniqueResponse, ipSeriesResponse] = await Promise.all([cookiePromise, seriesPromise, uniquePromise, ipSeriesPromise]);
 
       console.timeEnd("2.1 [BACKEND] Parallel DB Queries");
 
