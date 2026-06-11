@@ -15,10 +15,16 @@ else if (sessionStore === sessionStoreTypes.FILE) {
   store = new FileStore({
     ttl: 60 * 60 * parseInt(sessionMaxAgeInHours), //Session Time-to-Live in Seconds
     // BUG FIX: Windows-specific settings to prevent EPERM errors on rename/locking
-    retries: 5,
+    retries: 10,        // increased from 5 → 10 retries
     factor: 1,
-    minTimeout: 50,
-    maxTimeout: 100,
+    minTimeout: 100,    // increased from 50ms → 100ms
+    maxTimeout: 500,    // increased from 100ms → 500ms
+    reapInterval: 3600, // clean up expired sessions every 1 hour
+    logFn: (msg) => {
+      if (msg && msg.toLowerCase().includes('error')) {
+        console.error('[SESSION STORE ERROR]', msg);
+      }
+    }
     // secret: sessionSecret //to encrypt/hash the contents in the Session file
   });
 }

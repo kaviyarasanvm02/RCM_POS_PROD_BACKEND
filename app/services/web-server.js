@@ -2,6 +2,8 @@ const express = require("express");
 const http = require("http");
 const https = require("https");
 const httpProxy = require('http-proxy');
+const hana = require("@sap/hana-client");
+const { dbConfig } = require("../config/hana-db");
 //const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
@@ -186,6 +188,39 @@ const startServer = () => {
 
     //Global Error Handler
     app.use(errorHandler);
+
+    // ─── Health Check Endpoints ───────────────────────────────────────────────
+    // Basic ping - confirms Node.js process is alive
+    app.get('/ping', (req, res) => {
+      res.status(200).json({ status: 'ok', time: new Date().toISOString() });
+    });
+
+    // Deep health check - confirms HANA DB is reachable
+    app.get('/health', (req, res) => {
+      const conn = hana.createConnection();
+      conn.connect(dbConfig, (err) => {
+        if (err) {
+          console.error('[HEALTH CHECK] HANA DB connection failed:', err.message);
+          return res.status(503).json({
+            status: 'error',
+            service: 'HANA DB',
+            host: process.env.HANA_HOST,
+            port: process.env.HANA_PORT,
+            message: err.message,
+            time: new Date().toISOString()
+          });
+        }
+        conn.disconnect();
+        res.status(200).json({
+          status: 'ok',
+          service: 'HANA DB',
+          host: process.env.HANA_HOST,
+          port: process.env.HANA_PORT,
+          time: new Date().toISOString()
+        });
+      });
+    });
+    // ─────────────────────────────────────────────────────────────────────────
 
     //Set port & listen for requests
     server.listen(port, hostname)
