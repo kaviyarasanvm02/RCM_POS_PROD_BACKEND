@@ -27,14 +27,14 @@ const executeQuery = (sql, callback) => {
   });
 }
 
-const executeWithValues = (sql, values=[]) => {
+const executeWithValues = (sql, values = []) => {
   // console.log("executeWithValues: sql - values: %s - %s", sql, values);
 
   /*NOTE: If the value is not sent as array, below error is thrown
   Invalid parameter for function 'exec[ute](sql[, params][, options][, callback])'
   */
   //change it to an array if it is not an Array
-  if(!Array.isArray(values)) {
+  if (!Array.isArray(values)) {
     values = [values];
   }
 

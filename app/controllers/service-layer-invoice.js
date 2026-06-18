@@ -134,28 +134,49 @@ const create = async (req, res, next) => {
           request.DocumentLines.forEach(line => {
             if (Array.isArray(line.BatchNumbers) && line.BatchNumbers.length > 0) {
               const aggregated = [];
+              const oldToNewBatchIndex = new Map();
               const map = new Map();
-              line.BatchNumbers.forEach(bn => {
+
+              line.BatchNumbers.forEach((bn, oldIndex) => {
                 const key = `${bn.BatchNumber}_${bn.BaseLineNumber}`;
                 if (map.has(key)) {
-                  map.get(key).Quantity = parseFloat((map.get(key).Quantity + bn.Quantity).toFixed(5));
+                  const newIndex = map.get(key);
+                  aggregated[newIndex].Quantity = parseFloat((aggregated[newIndex].Quantity + bn.Quantity).toFixed(5));
+                  oldToNewBatchIndex.set(oldIndex, newIndex);
                 } else {
+                  const newIndex = aggregated.length;
                   const copy = { ...bn };
-                  map.set(key, copy);
+                  map.set(key, newIndex);
                   aggregated.push(copy);
+                  oldToNewBatchIndex.set(oldIndex, newIndex);
                 }
               });
               line.BatchNumbers = aggregated;
 
               // 2. Rebuild Bin Allocations to match the new 1:1 batch indices
               if (Array.isArray(line.DocumentLinesBinAllocations) && line.DocumentLinesBinAllocations.length > 0) {
-                const binAbs = line.DocumentLinesBinAllocations[0].BinAbsEntry;
-                line.DocumentLinesBinAllocations = aggregated.map((batch, index) => ({
-                  BinAbsEntry: binAbs,
-                  Quantity: batch.Quantity,
-                  SerialAndBatchNumbersBaseLine: index,
-                  BaseLineNumber: batch.BaseLineNumber
-                }));
+                const newBinAllocations = [];
+                const binMap = new Map();
+
+                line.DocumentLinesBinAllocations.forEach(bin => {
+                  const newBatchIndex = oldToNewBatchIndex.get(bin.SerialAndBatchNumbersBaseLine);
+                  if (newBatchIndex !== undefined) {
+                    const binKey = `${bin.BinAbsEntry}_${newBatchIndex}`;
+                    if (binMap.has(binKey)) {
+                      binMap.get(binKey).Quantity = parseFloat((binMap.get(binKey).Quantity + bin.Quantity).toFixed(5));
+                    } else {
+                      const copy = {
+                        BinAbsEntry: bin.BinAbsEntry,
+                        Quantity: bin.Quantity,
+                        SerialAndBatchNumbersBaseLine: newBatchIndex,
+                        BaseLineNumber: bin.BaseLineNumber
+                      };
+                      binMap.set(binKey, copy);
+                      newBinAllocations.push(copy);
+                    }
+                  }
+                });
+                line.DocumentLinesBinAllocations = newBinAllocations;
               }
             }
           });

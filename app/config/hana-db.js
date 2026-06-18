@@ -200,7 +200,7 @@ JOIN ${dbCreds.CompanyDB}.OITM T2 ON T0."ItemCode" = T2."ItemCode"`;
 //A."ItemName", 
 const binsAndItemQuantityInWarehouse =
   `SELECT A."ItemCode", A."ItemName", A."CodeBars", A."FrgnName", C."WhsCode", D."BinCode", D."AbsEntry" "BinAbsEntry", C."OnHandQty",
-    A."ManBtchNum", A."ManSerNum", A."InvntItem",
+    A."ManBtchNum", A."ManSerNum", A."InvntItem", A."TreeType",
     (SELECT MAX(B."Price") FROM  ${dbCreds.CompanyDB}.ITM1 B
       WHERE B."ItemCode"=A."ItemCode" AND B."PriceList"=?) AS "Price"
   FROM ${dbCreds.CompanyDB}.OITM A, ${dbCreds.CompanyDB}.OIBQ C, ${dbCreds.CompanyDB}.OBIN D
@@ -218,7 +218,7 @@ const binsAndItemQuantityInWarehouseWithPrice =
     (SELECT G."ListName" FROM  ${dbCreds.CompanyDB}.OPLN G
         WHERE G."ListNum" = O."ListNum") AS "PriceListName",
       A."U_FCCC" AS "FCCCItem",
-      A."SalUnitMsr" as "SalesUOM",
+      A."SalUnitMsr" as "SalesUOM", A."TreeType",
       (SELECT MAX(B."Price") FROM  ${dbCreds.CompanyDB}.ITM1 B
         WHERE B."ItemCode"=A."ItemCode" AND B."PriceList"= O."ListNum") AS "Price"
     FROM 
@@ -241,7 +241,7 @@ const binsAndItemQuantityInWarehouseWithPriceList =
     (SELECT G."ListName" FROM  ${dbCreds.CompanyDB}.OPLN G
         WHERE G."ListNum" = O."U_PrcList") AS "PriceListName",
     A."U_FCCC" AS "FCCCItem",
-    A."SalUnitMsr" as "SalesUOM",
+    A."SalUnitMsr" as "SalesUOM", A."TreeType",
       (SELECT MAX(B."Price") FROM  ${dbCreds.CompanyDB}.ITM1 B
         WHERE B."ItemCode"=A."ItemCode" AND B."PriceList"= O."U_PrcList") AS "Price",
     CASE 

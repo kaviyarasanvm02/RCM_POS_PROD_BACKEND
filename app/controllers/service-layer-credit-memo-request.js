@@ -101,6 +101,93 @@ const create = async (req, res, next) => {
         mappedLine.BaseType = 13;
         mappedLine.BaseEntry = Number(baseInvoiceEntry);
         mappedLine.BaseLine = original ? Number(original.LineNum) : index;
+        
+        // Fetch batch/serial information from the original invoice
+        if (invoiceData && invoiceData.DocumentLines) {
+          const slOriginalLine = invoiceData.DocumentLines.find(l => l.LineNum === mappedLine.BaseLine);
+          if (slOriginalLine) {
+            let remainingQty = Number(line.Quantity);
+
+            // 1. Map Batch Numbers
+            let oldToNewBatchIndexMap = {};
+            let batchRemainingQtyMap = {};
+            if (Array.isArray(slOriginalLine.BatchNumbers) && slOriginalLine.BatchNumbers.length > 0) {
+              mappedLine.BatchNumbers = [];
+              remainingQty = Number(line.Quantity);
+              for (let i = 0; i < slOriginalLine.BatchNumbers.length; i++) {
+                const batch = slOriginalLine.BatchNumbers[i];
+                if (remainingQty <= 0) break;
+                const allocateQty = Math.min(batch.Quantity, remainingQty);
+                mappedLine.BatchNumbers.push({
+                  BatchNumber: batch.BatchNumber,
+                  Quantity: allocateQty,
+                  BaseLineNumber: index
+                });
+                const newIdx = mappedLine.BatchNumbers.length - 1;
+                oldToNewBatchIndexMap[i] = newIdx;
+                batchRemainingQtyMap[newIdx] = allocateQty;
+                remainingQty -= allocateQty;
+              }
+            }
+
+            // 2. Map Serial Numbers
+            let oldToNewSerialIndexMap = {};
+            let serialRemainingQtyMap = {};
+            if (Array.isArray(slOriginalLine.SerialNumbers) && slOriginalLine.SerialNumbers.length > 0) {
+              mappedLine.SerialNumbers = [];
+              remainingQty = Number(line.Quantity);
+              for (let i = 0; i < slOriginalLine.SerialNumbers.length; i++) {
+                const serial = slOriginalLine.SerialNumbers[i];
+                if (remainingQty <= 0) break;
+                mappedLine.SerialNumbers.push({
+                  InternalSerialNumber: serial.InternalSerialNumber,
+                  Quantity: 1,
+                  BaseLineNumber: index
+                });
+                const newIdx = mappedLine.SerialNumbers.length - 1;
+                oldToNewSerialIndexMap[i] = newIdx;
+                serialRemainingQtyMap[newIdx] = 1;
+                remainingQty -= 1;
+              }
+            }
+
+            // 3. Map Bin Allocations
+            if (Array.isArray(slOriginalLine.DocumentLinesBinAllocations) && slOriginalLine.DocumentLinesBinAllocations.length > 0) {
+              mappedLine.DocumentLinesBinAllocations = [];
+              for (let i = 0; i < slOriginalLine.DocumentLinesBinAllocations.length; i++) {
+                const bin = slOriginalLine.DocumentLinesBinAllocations[i];
+                let newSerialBatchIndex = undefined;
+                let maxBinQty = 0;
+
+                if (mappedLine.BatchNumbers && mappedLine.BatchNumbers.length > 0) {
+                  newSerialBatchIndex = oldToNewBatchIndexMap[bin.SerialAndBatchNumbersBaseLine];
+                  if (newSerialBatchIndex !== undefined) maxBinQty = batchRemainingQtyMap[newSerialBatchIndex];
+                } else if (mappedLine.SerialNumbers && mappedLine.SerialNumbers.length > 0) {
+                  newSerialBatchIndex = oldToNewSerialIndexMap[bin.SerialAndBatchNumbersBaseLine];
+                  if (newSerialBatchIndex !== undefined) maxBinQty = serialRemainingQtyMap[newSerialBatchIndex];
+                }
+
+                if (newSerialBatchIndex !== undefined && maxBinQty > 0) {
+                  const allocateQty = Math.min(bin.Quantity, maxBinQty);
+                  if (allocateQty > 0) {
+                    mappedLine.DocumentLinesBinAllocations.push({
+                      BinAbsEntry: bin.BinAbsEntry,
+                      Quantity: allocateQty,
+                      BaseLineNumber: index,
+                      SerialAndBatchNumbersBaseLine: newSerialBatchIndex
+                    });
+                    
+                    if (mappedLine.BatchNumbers && mappedLine.BatchNumbers.length > 0) {
+                      batchRemainingQtyMap[newSerialBatchIndex] -= allocateQty;
+                    } else if (mappedLine.SerialNumbers && mappedLine.SerialNumbers.length > 0) {
+                      serialRemainingQtyMap[newSerialBatchIndex] -= allocateQty;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
 
       return mappedLine;

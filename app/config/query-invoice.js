@@ -46,6 +46,7 @@ exports.itemListForInvoice =
     T1."Quantity", T1."OpenQty", T1."Price", T1."DiscPrcnt" "DiscountPercent", T1."unitMsr" "UomCode", T1."VatGroup",
     T1."WhsCode", T1."VatPrcnt" "TaxPercent", T1."VatSum" "TaxLocal", T1."VatSumFrgn" "TaxForeign",
     T1."LineTotal", T1."U_ReturnedQty", T1."U_RemainingOpenQty", T1."PriceAfVAT" as "NetUnitPrice", T1."PriceBefDi" "PriceBeforDiscount", T1."U_DeliveryApp",
+    T1."TreeType", ITM."TreeType" AS "ItemTreeType",
     (SELECT E."ItmsGrpNam" FROM  ${dbCreds.CompanyDB}.OITB E
         WHERE E."ItmsGrpCod"=ITM."ItmsGrpCod") AS "ItmsGrpName", 
     ITM."ItmsGrpCod",
