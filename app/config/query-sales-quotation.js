@@ -50,7 +50,7 @@ exports.itemListForSalesQuotation =
     (SELECT E."ItmsGrpNam" FROM  ${dbCreds.CompanyDB}.OITB E
         WHERE E."ItmsGrpCod"=ITM."ItmsGrpCod") AS "ItmsGrpName", 
     ITM."ItmsGrpCod", ITM."ManSerNum", ITM."ManBtchNum",
-    ITM."U_FCCC" AS "FCCCItem",
+    ITM."U_FCCC" AS "FCCCItem", T1."TreeType",
     CASE 
       WHEN EXISTS (
         SELECT 1 
