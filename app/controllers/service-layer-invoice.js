@@ -189,6 +189,19 @@ const create = async (req, res, next) => {
         // Create Incoming Payment when a payment is done via Card or CC. Skip this when an Invoice is created 
         // based on a Credit Purchase
         if (invoiceResponse.DocEntry) {
+          const hasQuotationBase = request.DocumentLines?.some(line => line.BaseType === 23 || line.BaseType === '23');
+          if (hasQuotationBase && request.DocDueDate) {
+            console.log(`[BACKEND] Invoice ${invoiceResponse.DocEntry} created from Quotation. Overriding DocDueDate to ${request.DocDueDate} to match invoice expiry period.`);
+            try {
+              await serviceLayerHelper.updateInvoice({
+                DocEntry: invoiceResponse.DocEntry,
+                DocDueDate: request.DocDueDate
+              }, cookie);
+              console.log(`[BACKEND] Successfully updated DocDueDate for Invoice ${invoiceResponse.DocEntry}`);
+            } catch (updateErr) {
+              console.error(`[BACKEND] Failed to update DocDueDate for Invoice ${invoiceResponse.DocEntry}:`, updateErr.message);
+            }
+          }
           if (req.file) {
             console.log(`[BACKEND] Attachment found for Invoice ${invoiceResponse.DocEntry}. Creating entry...`);
             const absEntry = await serviceLayerHelper.createAttachmentEntry(req, cookie);
