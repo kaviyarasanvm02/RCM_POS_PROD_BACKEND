@@ -49,7 +49,7 @@ exports.itemListForSalesQuotation =
     T1."LineTotal", T1."U_ReturnedQty", T1."U_RemainingOpenQty", T1."PriceBefDi" "PriceBeforDiscount",
     (SELECT E."ItmsGrpNam" FROM  ${dbCreds.CompanyDB}.OITB E
         WHERE E."ItmsGrpCod"=ITM."ItmsGrpCod") AS "ItmsGrpName", 
-    ITM."ItmsGrpCod", ITM."ManSerNum", ITM."ManBtchNum",
+    ITM."ItmsGrpCod", ITM."ManSerNum", ITM."ManBtchNum", ITM."TreeType", T1."TreeType" AS "LineTreeType",
     ITM."U_FCCC" AS "FCCCItem",
     CASE 
       WHEN EXISTS (

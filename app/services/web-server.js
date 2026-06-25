@@ -186,6 +186,9 @@ const startServer = () => {
     //w TypeORM
     app.use(`${customBaseURI}/qc-item-group`, qcItemGroupRoutes);
 
+    // Sales BOM Route
+    require("../routes/bom.routes.js")(app);
+
     //Global Error Handler
     app.use(errorHandler);
 

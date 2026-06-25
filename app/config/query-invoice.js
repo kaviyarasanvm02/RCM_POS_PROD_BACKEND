@@ -52,11 +52,11 @@ exports.itemListForInvoice =
     IFNULL((SELECT SUM(S1."U_NoOfPcs") FROM  ${dbCreds.CompanyDB}."@OSBS" S0
         INNER JOIN  ${dbCreds.CompanyDB}."@SBS1" S1 ON S0."DocEntry" = S1."DocEntry" 
         WHERE S0."DocNum" = T1."U_DocNum" GROUP by S1."DocEntry"), 0) AS "Pcs",
-    IFNULL((SELECT SUM(S1."U_SelQty") FROM  ${dbCreds.CompanyDB}."@OSBS" S0
+     IFNULL((SELECT SUM(S1."U_SelQty") FROM  ${dbCreds.CompanyDB}."@OSBS" S0
         INNER JOIN  ${dbCreds.CompanyDB}."@SBS1" S1 ON S0."DocEntry" = S1."DocEntry" 
         WHERE S0."DocNum" = T1."U_DocNum" GROUP by S1."DocEntry"), 0) AS "Volume",
      T1."CogsOcrCod" AS "COGSBranch",
-    ITM."U_FCCC" AS "FCCCItem",
+    ITM."U_FCCC" AS "FCCCItem", ITM."TreeType", T1."TreeType" AS "LineTreeType",
     CASE 
       WHEN EXISTS (
         SELECT 1 

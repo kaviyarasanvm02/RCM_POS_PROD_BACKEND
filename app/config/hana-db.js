@@ -200,7 +200,7 @@ JOIN ${dbCreds.CompanyDB}.OITM T2 ON T0."ItemCode" = T2."ItemCode"`;
 //A."ItemName", 
 const binsAndItemQuantityInWarehouse =
   `SELECT A."ItemCode", A."ItemName", A."CodeBars", A."FrgnName", C."WhsCode", D."BinCode", D."AbsEntry" "BinAbsEntry", C."OnHandQty",
-    A."ManBtchNum", A."ManSerNum", A."InvntItem",
+    A."ManBtchNum", A."ManSerNum", A."InvntItem", A."TreeType",
     (SELECT MAX(B."Price") FROM  ${dbCreds.CompanyDB}.ITM1 B
       WHERE B."ItemCode"=A."ItemCode" AND B."PriceList"=?) AS "Price"
   FROM ${dbCreds.CompanyDB}.OITM A, ${dbCreds.CompanyDB}.OIBQ C, ${dbCreds.CompanyDB}.OBIN D
@@ -209,7 +209,7 @@ WHERE A."ItemCode"=C."ItemCode"
   AND C."OnHandQty">0`;
 
 const binsAndItemQuantityInWarehouseWithPrice =
-  `SELECT A."ItemCode", A."ItemName", F."BcdCode" as CodeBars, A."FrgnName", IFNULL(B."WhsCode", '') as "WhsCode", 
+  `SELECT A."ItemCode", A."ItemName", F."BcdCode" as CodeBars, A."FrgnName", IFNULL(B."WhsCode", '') as "WhsCode", A."TreeType",
     IFNULL(D."BinCode", '') as "BinCode", IFNULL(D."AbsEntry", 0) as "BinAbsEntry",
     (SELECT E."ItmsGrpNam" FROM  ${dbCreds.CompanyDB}.OITB E
         WHERE E."ItmsGrpCod"=A."ItmsGrpCod") AS "ItmsGrpName", 
@@ -232,7 +232,7 @@ const binsAndItemQuantityInWarehouseWithPrice =
   1=1`;
 
 const binsAndItemQuantityInWarehouseWithPriceList =
-  `SELECT A."ItemCode", A."ItemName", F."BcdCode" as CodeBars, A."FrgnName", IFNULL(B."WhsCode", '') as "WhsCode", 
+  `SELECT A."ItemCode", A."ItemName", F."BcdCode" as CodeBars, A."FrgnName", IFNULL(B."WhsCode", '') as "WhsCode", A."TreeType",
     IFNULL(D."BinCode", '') as "BinCode", IFNULL(D."AbsEntry", 0) as "BinAbsEntry",
     (SELECT E."ItmsGrpNam" FROM  ${dbCreds.CompanyDB}.OITB E
         WHERE E."ItmsGrpCod"=A."ItmsGrpCod") AS "ItmsGrpName", 
