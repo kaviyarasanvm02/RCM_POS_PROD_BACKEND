@@ -42,7 +42,7 @@ const getItems = (req) => {
   //NOTE: Batch Item: ManBtchNum = 'Y' | Serial Item: ManSerNum = 'Y' | Labor Item: InvntItem = 'N'
   //Normal Item: ManBtchNum = 'N' & ManSerNum = 'N'
   let sql = `SELECT T0."ItemCode", T0."ItemName", T0."FrgnName", T0."InvntryUom",
-             T0."ManBtchNum", T0."ManSerNum", T0."InvntItem",
+             T0."ManBtchNum", T0."ManSerNum", T0."InvntItem", T0."TreeType",
              T0."CodeBars", T0."AvgPrice", T0."SpcialDisc" "Discount",
              (SELECT MAX(A."Price") FROM  ${query.dbCreds.CompanyDB}.ITM1 A 
                 WHERE A."ItemCode"=T0."ItemCode" AND A."PriceList"='1') AS "Price"
