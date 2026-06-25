@@ -34,9 +34,10 @@ exports.createInvoice = async (request, cookie) => {
 
 exports.updateInvoice = async (request, cookie) => {
     try {
-        console.log("*** Invoice request: " + JSON.stringify(request));
+        const { DocEntry, ...patchBody } = request;
+        console.log("*** Invoice request: " + JSON.stringify(patchBody));
         serviceLayerAPI.defaults.headers.Cookie = cookie;
-        const response = await serviceLayerAPI.patch(`${serviceLayerURI}(${request.DocEntry})`, request);
+        const response = await serviceLayerAPI.patch(`${serviceLayerURI}(${DocEntry})`, patchBody);
         //.patch(serviceLayerURI, request);
         //console.log("*** Invoice Response: " + JSON.stringify(response));
         if (response && response.status === 204) {
