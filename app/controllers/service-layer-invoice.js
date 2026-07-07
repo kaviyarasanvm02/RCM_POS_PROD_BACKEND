@@ -359,24 +359,30 @@ const create = async (req, res, next) => {
  * 
  * @returns Incoming Payment response
  */
-const processPayment = async (invoiceDocEntry, ipRequest, cookie, absEntry) => {
+const processPayment = async (invoiceDocEntry, ipRequest, cookie) => {
   try {
     ipRequest.PaymentInvoices[0].DocEntry = invoiceDocEntry;
-    // We remove the direct AttachmentEntry assignment here because we'll use 
-    // updatePaymentAttachment (Attachments2_Lines) after creation instead.
-    // if (absEntry) {
-    //   ipRequest.AttachmentEntry = absEntry;
-    // }
-    if (Array.isArray(ipRequest.PaymentChecks) && ipRequest.PaymentChecks.length > 0) {
-      ipRequest.PaymentChecks[0].DueDate = formatDate(new Date(), "YYYY-MM-DD HH24:MI:SS.FF2");
+    if (
+      Array.isArray(ipRequest.PaymentChecks) &&
+      ipRequest.PaymentChecks.length > 0
+    ) {
+      const todayFormatted = formatDate(
+        new Date(),
+        "YYYY-MM-DD HH24:MI:SS.FF2"
+      );
+      ipRequest.PaymentChecks.forEach((check) => {
+        check.DueDate = todayFormatted;
+      });
     }
-    const ipResponse = await serviceLayerIPHelper.createIncomingPayment(ipRequest, cookie);
+    const ipResponse = await serviceLayerIPHelper.createIncomingPayment(
+      ipRequest,
+      cookie
+    );
     return ipResponse;
-  }
-  catch (err) {
+  } catch (err) {
     throw err;
   }
-}
+};
 
 /**
  * Create Journal Entry

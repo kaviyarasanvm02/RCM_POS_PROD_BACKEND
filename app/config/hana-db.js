@@ -25,8 +25,8 @@ const dbConfig = {
   user: process.env.HANA_USER,
   password: process.env.HANA_PASSWORD,
   pooling: process.env.HANA_POOLING === 'true',
-  maxPoolSize: process.env.HANA_MAX_POOL_SIZE,
-  connectionLifetime: process.env.HANA_CONNECTION_LIFE_TIME //max time in secs, that the connection is cached in the pool
+  maxPoolSize: parseInt(process.env.HANA_MAX_POOL_SIZE, 10) || 75,
+  connectionLifetime: parseInt(process.env.HANA_CONNECTION_LIFE_TIME, 10) || 60 //max time in secs, that the connection is cached in the pool
 };
 
 /** Queries */
