@@ -289,7 +289,12 @@ exports.updateRemainingQuantity = (req) => {
   try {
     if (Array.isArray(req) && req.length > 0) {
       const updateRequest = req.map(item => {
-        return [item.U_ReturnedQty, item.U_RemainingOpenQty, item.DocEntry, item.LineNum];
+        return [
+          item.U_ReturnedQty !== null && item.U_ReturnedQty !== undefined ? Number(item.U_ReturnedQty) : null,
+          item.U_RemainingOpenQty !== null && item.U_RemainingOpenQty !== undefined ? Number(item.U_RemainingOpenQty) : null,
+          Number(item.DocEntry),
+          Number(item.LineNum)
+        ];
       });
 
       console.log("updateRemainingQuantity- updateRequest: " + JSON.stringify(updateRequest));
