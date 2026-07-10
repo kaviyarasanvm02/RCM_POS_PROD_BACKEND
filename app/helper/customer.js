@@ -77,44 +77,47 @@ exports.getCustomerContactPerson = (cardCode) => {
  */
 exports.getCustomerSpecialPrice = (cardCode, itemCode, whsCode) => {
   try {
+    let specialPriceObj = null;
+
     // 1 Check customer-specific price
     const result1 = dbHelper.executeWithValues(
       query.selectCustomerSpecialPrice1,
       [itemCode, cardCode]
     );
     if(Array.isArray(result1) && result1.length > 0) {
-      return result1[0];
+      specialPriceObj = result1[0];
+    } else {
+      // 2 Check default '*1' price
+      const result2 = dbHelper.executeWithValues(
+        query.selectCustomerSpecialPrice2,
+        [itemCode] // only itemCode because CardCode is hardcoded in query
+      );
+
+      if (Array.isArray(result2) && result2.length > 0) {
+        specialPriceObj = result2[0]; // Found default price
+      } else {
+        const result3 = dbHelper.executeWithValues(
+          query.selectCustomerSpecialPrice3,
+          [whsCode, itemCode] // only itemCode because CardCode is hardcoded in query
+        );
+
+        if (Array.isArray(result3) && result3.length > 0) {
+          specialPriceObj = result3[0]; // Found default price
+        }
+      }
     }
 
-    // 2 Check default '*1' price
-    const result2 = dbHelper.executeWithValues(
-      query.selectCustomerSpecialPrice2,
-      [itemCode] // only itemCode because CardCode is hardcoded in query
-    );
-
-    if (Array.isArray(result2) && result2.length > 0) {
-      return result2[0]; // Found default price
+    if (specialPriceObj) {
+      // Fetch volume discounts from SPP2
+      const spp2Result = dbHelper.executeWithValues(
+        query.selectVolumeDiscounts,
+        [itemCode, cardCode]
+      );
+      if (Array.isArray(spp2Result) && spp2Result.length > 0) {
+        specialPriceObj.volumeDiscounts = spp2Result;
+      }
+      return specialPriceObj;
     }
-
-    const result3 = dbHelper.executeWithValues(
-      query.selectCustomerSpecialPrice3,
-      [whsCode, itemCode] // only itemCode because CardCode is hardcoded in query
-    );
-
-    if (Array.isArray(result3) && result3.length > 0) {
-      return result3[0]; // Found default price
-    }
-
-    // 3 Check Special-price new updated query
-    //const sql = query.selectCustomerSpecialPriceNew;
-    // const result2 = dbHelper.executeWithValues(
-    //   query.selectCustomerSpecialPriceNew,
-    //   [itemCode, cardCode, whsCode] 
-    // );
-
-    // if (Array.isArray(result2) && result2.length > 0) {
-    //   return result2[0]; // Found default price
-    // }
 
     // 3 No price found
     return "";
