@@ -156,7 +156,11 @@ const create = async (req, res, next) => {
 
     // 🔹 9. Update Local Quantities (POS sync)
     if (invoiceUpdateRequest.length > 0) {
-      await invoiceHelper.updateRemainingQuantity(invoiceUpdateRequest);
+      try {
+        await invoiceHelper.updateRemainingQuantity(invoiceUpdateRequest);
+      } catch (localErr) {
+        console.warn("[Sync Warning] Failed to update local invoice quantities, but Return was posted in SAP: ", localErr.message);
+      }
     }
 
     res.status(200).send({ DocNum: response.DocNum, DocEntry: response.DocEntry });
