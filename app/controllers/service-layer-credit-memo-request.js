@@ -156,7 +156,11 @@ const create = async (req, res, next) => {
 
     // 🔹 9. Update Local Quantities (POS sync)
     if (invoiceUpdateRequest.length > 0) {
-      await invoiceHelper.updateRemainingQuantity(invoiceUpdateRequest);
+      try {
+        await invoiceHelper.updateRemainingQuantity(invoiceUpdateRequest);
+      } catch (dbErr) {
+        console.error(`[DB Error] Failed to update remaining quantities in local DB:`, dbErr.message);
+      }
     }
 
     res.status(200).send({ DocNum: response.DocNum, DocEntry: response.DocEntry });
