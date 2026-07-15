@@ -8,10 +8,11 @@ const { dbCreds } = require("./hana-db");
  */
 const selectCustomerInfo = 
 `SELECT T0."CardCode", T0."CardName", T0."Cellular", T0."U_OneTimeCustomer", T0."U_COD", T0."U_Fin_Status",
-    T0."U_CustomerType", T0."GroupNum",
+    T0."U_CustomerType", T0."GroupNum", T1."PymntGroup",
     T0."CreditLine" as "CreditLimit", T0."CreditLine" - (T0."Balance" + T0."DNotesBal") as "AvailableBalance",
     T0."SlpCode" "SalesEmployeeCode", T0."LicTradNum"
   FROM ${dbCreds.CompanyDB}.OCRD T0
+  LEFT JOIN ${dbCreds.CompanyDB}.OCTG T1 ON T0."GroupNum" = T1."GroupNum"
 WHERE T0."CardType" ='C'`;
 
 //T1."Block", 
