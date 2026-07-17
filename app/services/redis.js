@@ -1,42 +1,47 @@
-// Import the redis package
+// Import the redis package (v4 - uses async/promise API)
 const redis = require("redis");
-// Create a Redis client
+
+// Create a Redis client (redis v4 syntax)
 const redisClient = redis.createClient({
-  host: "localhost",
-  port: 6379,
+  socket: {
+    host: "localhost",
+    port: 6379,
+  }
 });
 
-redisClient.on("connect", function (err) {
-  console.log("Connected to redis successfully");
+redisClient.on("connect", function () {
+  console.log("Connected to Redis successfully");
 });
 
-// Handle Redis client connection errors
 redisClient.on("error", (error) => {
   console.error("Redis connection error:", error);
 });
 
+// Connect to Redis (required in redis v4)
+redisClient.connect().catch((err) => {
+  console.error("Redis initial connect failed:", err);
+});
+
 // Set a value in Redis
-const setValue = (key, value) => {
-  redisClient.set(key, value, (error) => {
-    if (error) {
-      console.error("Error setting value in Redis:", error);
-    } else {
-      console.log("Value set in Redis:", key, value);
-    }
-  });
+const setValue = async (key, value) => {
+  try {
+    await redisClient.set(key, value);
+    console.log("Value set in Redis:", key, value);
+  } catch (error) {
+    console.error("Error setting value in Redis:", error);
+  }
 };
 
 // Get a value from Redis
-const getValue = (key, callback) => {
-  redisClient.get(key, (error, value) => {
-    if (error) {
-      console.error("Error getting value from Redis:", error);
-      callback(error, null);
-    } else {
-      console.log("Value retrieved from Redis:", key, value);
-      callback(null, value);
-    }
-  });
+const getValue = async (key) => {
+  try {
+    const value = await redisClient.get(key);
+    console.log("Value retrieved from Redis:", key, value);
+    return value;
+  } catch (error) {
+    console.error("Error getting value from Redis:", error);
+    throw error;
+  }
 };
 
 module.exports = { redisClient, setValue, getValue };
