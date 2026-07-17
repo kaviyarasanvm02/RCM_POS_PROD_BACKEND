@@ -160,7 +160,10 @@ const sessionStoreTypes = {
 };
 
 const sessionMaxAgeInHours = 17; //in Hours
-const sessionStore = sessionStoreTypes.FILE;
+// FIX: Switched from FILE → REDIS to permanently eliminate Windows EPERM file-lock errors
+// that caused daily POS downtime at 12–1 PM Fiji time (00:00–01:00 UTC).
+// Redis installed as Windows Service, runs on localhost:6379.
+const sessionStore = sessionStoreTypes.REDIS;
 const cookieName = "ONE";
 const sessionSecret = "kiafn239df#@asdf$%^13423#$%@sdfgdf";
 
