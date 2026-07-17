@@ -1,5 +1,5 @@
 const session = require("express-session");
-const connectRedis = require("connect-redis");
+const { RedisStore } = require("connect-redis").default ? { RedisStore: require("connect-redis").default } : require("connect-redis"); // v7 ESM compat
 const fileStore = require("session-file-store");
 const { sessionStoreTypes, sessionStore, cookieName,
   sessionSecret, sessionMaxAgeInHours } = require("../config/config");
@@ -7,7 +7,7 @@ const { redisClient } = require("../services/redis.js");
 
 let store = "";
 if(sessionStore === sessionStoreTypes.REDIS) {
-  const RedisStore = connectRedis(session);
+  // connect-redis v7 API: pass redisClient directly (no connectRedis(session) wrapper needed)
   store = new RedisStore({ client: redisClient });
 }
 else if (sessionStore === sessionStoreTypes.FILE) {
@@ -15,10 +15,11 @@ else if (sessionStore === sessionStoreTypes.FILE) {
   store = new FileStore({
     ttl: 60 * 60 * parseInt(sessionMaxAgeInHours), //Session Time-to-Live in Seconds
     // BUG FIX: Windows-specific settings to prevent EPERM errors on rename/locking
-    retries: 10,        // increased from 5 → 10 retries
-    factor: 1,
-    minTimeout: 100,    // increased from 50ms → 100ms
-    maxTimeout: 500,    // increased from 100ms → 500ms
+    // Increased significantly to handle concurrent requests at noon (12-1 PM Fiji peak)
+    retries: 30,        // increased from 10 → 30 retries
+    factor: 2,          // exponential backoff factor
+    minTimeout: 500,    // increased from 100ms → 500ms
+    maxTimeout: 3000,   // increased from 500ms → 3000ms
     reapInterval: 3600, // clean up expired sessions every 1 hour
     logFn: (msg) => {
       if (msg && msg.toLowerCase().includes('error')) {

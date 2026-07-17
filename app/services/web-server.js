@@ -204,6 +204,7 @@ const startServer = () => {
       conn.connect(dbConfig, (err) => {
         if (err) {
           console.error('[HEALTH CHECK] HANA DB connection failed:', err.message);
+          try { conn.disconnect(); } catch (e) {}
           return res.status(503).json({
             status: 'error',
             service: 'HANA DB',
@@ -213,7 +214,7 @@ const startServer = () => {
             time: new Date().toISOString()
           });
         }
-        conn.disconnect();
+        try { conn.disconnect(); } catch (e) {}
         res.status(200).json({
           status: 'ok',
           service: 'HANA DB',

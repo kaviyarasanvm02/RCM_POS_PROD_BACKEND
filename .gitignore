@@ -7,5 +7,5 @@ app/entities/services/_old
 app/controllers/_old
 _old/
 
-.env
-.env.ajax.dev
+# .env
+# .env.ajax.dev
