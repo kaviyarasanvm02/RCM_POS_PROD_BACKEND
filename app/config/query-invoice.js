@@ -44,7 +44,7 @@ exports.itemListForInvoice =
   `SELECT T0."DocNum", T0."DocEntry",
     T1."LineNum", T1."ItemCode", ITM."ItemName", T1."LineStatus", IFNULL(TO_VARCHAR(T1."U_DocNum"), (SELECT MIN(B."BatchNum") FROM ${dbCreds.CompanyDB}.IBT1 B WHERE B."BaseEntry" = T1."DocEntry" AND B."BaseLinNum" = T1."LineNum" AND B."BaseType" = 13)) AS "BundleNo", 
     T1."Quantity", T1."OpenQty", T1."Price", T1."DiscPrcnt" "DiscountPercent", T1."unitMsr" "UomCode", T1."VatGroup",
-    T1."WhsCode", T1."VatPrcnt" "TaxPercent", T1."VatSum" "TaxLocal", T1."VatSumFrgn" "TaxForeign",
+    T1."WhsCode", T10."WhsName", T1."VatPrcnt" "TaxPercent", T1."VatSum" "TaxLocal", T1."VatSumFrgn" "TaxForeign",
     T1."LineTotal", T1."U_ReturnedQty", T1."U_RemainingOpenQty", T1."PriceAfVAT" as "NetUnitPrice", T1."PriceBefDi" "PriceBeforDiscount", T1."U_DeliveryApp",  ITM."ManSerNum",
     ITM."WarrntTmpl",
     (SELECT E."ItmsGrpNam" FROM  ${dbCreds.CompanyDB}.OITB E
@@ -71,6 +71,7 @@ exports.itemListForInvoice =
   FROM ${dbCreds.CompanyDB}.OINV T0
     INNER JOIN ${dbCreds.CompanyDB}.INV1 T1 ON T0."DocEntry" = T1."DocEntry"
     INNER JOIN ${dbCreds.CompanyDB}.OITM ITM ON T1."ItemCode" = ITM."ItemCode"
+    LEFT JOIN ${dbCreds.CompanyDB}.OWHS T10 ON T1."WhsCode" = T10."WhsCode"
   WHERE T0."DocNum" IN `;
 
 exports.invoiceFircaURL =

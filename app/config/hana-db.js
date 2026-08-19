@@ -209,7 +209,7 @@ WHERE A."ItemCode"=C."ItemCode"
   AND C."OnHandQty">0`;
 
 const binsAndItemQuantityInWarehouseWithPrice =
-  `SELECT A."ItemCode", A."ItemName", F."BcdCode" as CodeBars, A."FrgnName", IFNULL(B."WhsCode", '') as "WhsCode", A."TreeType",
+  `SELECT A."ItemCode", A."ItemName", F."BcdCode" as CodeBars, A."FrgnName", IFNULL(B."WhsCode", '') as "WhsCode", W."WhsName", A."TreeType",
     IFNULL(D."BinCode", '') as "BinCode", IFNULL(D."AbsEntry", 0) as "BinAbsEntry",
     (SELECT E."ItmsGrpNam" FROM  ${dbCreds.CompanyDB}.OITB E
         WHERE E."ItmsGrpCod"=A."ItmsGrpCod") AS "ItmsGrpName", 
@@ -224,6 +224,7 @@ const binsAndItemQuantityInWarehouseWithPrice =
     FROM 
       ${dbCreds.CompanyDB}.OITM A
       LEFT JOIN ${dbCreds.CompanyDB}.OITW B on A."ItemCode"=B."ItemCode" 
+      LEFT JOIN ${dbCreds.CompanyDB}.OWHS W on B."WhsCode"=W."WhsCode"
       LEFT JOIN ${dbCreds.CompanyDB}.OIBQ C ON A."ItemCode"=C."ItemCode" and C."WhsCode"=B."WhsCode"   
       LEFT JOIN ${dbCreds.CompanyDB}.OBIN D ON D."AbsEntry" = C."BinAbs" 
       LEFT JOIN ${dbCreds.CompanyDB}.OCRD O ON O."CardCode" = ?
@@ -232,7 +233,7 @@ const binsAndItemQuantityInWarehouseWithPrice =
   1=1`;
 
 const binsAndItemQuantityInWarehouseWithPriceList =
-  `SELECT A."ItemCode", A."ItemName", F."BcdCode" as CodeBars, A."FrgnName", IFNULL(B."WhsCode", '') as "WhsCode", A."TreeType",
+  `SELECT A."ItemCode", A."ItemName", F."BcdCode" as CodeBars, A."FrgnName", IFNULL(B."WhsCode", '') as "WhsCode", W."WhsName", A."TreeType",
     IFNULL(D."BinCode", '') as "BinCode", IFNULL(D."AbsEntry", 0) as "BinAbsEntry",
     (SELECT E."ItmsGrpNam" FROM  ${dbCreds.CompanyDB}.OITB E
         WHERE E."ItmsGrpCod"=A."ItmsGrpCod") AS "ItmsGrpName", 
@@ -257,6 +258,7 @@ const binsAndItemQuantityInWarehouseWithPriceList =
     FROM 
       ${dbCreds.CompanyDB}.OITM A
       LEFT JOIN ${dbCreds.CompanyDB}.OITW B on A."ItemCode"=B."ItemCode" 
+      LEFT JOIN ${dbCreds.CompanyDB}.OWHS W on B."WhsCode"=W."WhsCode"
       LEFT JOIN ${dbCreds.CompanyDB}.OIBQ C ON A."ItemCode"=C."ItemCode" and C."WhsCode"=B."WhsCode"   
       LEFT JOIN ${dbCreds.CompanyDB}.OBIN D ON D."AbsEntry" = C."BinAbs" 
       LEFT JOIN ${dbCreds.CompanyDB}.OBPL O ON O."BPLId" = ?

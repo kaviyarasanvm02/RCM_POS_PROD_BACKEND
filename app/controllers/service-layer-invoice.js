@@ -312,9 +312,9 @@ const create = async (req, res, next) => {
         // }
       }
       console.log("*************invoiceSalesBatchResponse end************ ")
-      if (req.body.invoice.U_PaymentType === "Card") {
+      if (req.body.incomingPayment?.PaymentCreditCards?.length > 0) {
         console.log("*************CreditCard Management referenece start************ ")
-        if (req.body.incomingPayment?.TransferReference && req.body.incomingPayment?.TransferReference !== "") {
+        if (req.body.incomingPayment?.TransferReference && req.body.incomingPayment?.TransferReference !== "" && ipDocEntry) {
           console.log("*************CreditCard Management referenece************: ", ipDocEntry + " - " + req.body.incomingPayment.TransferReference)
           const responseTransRef = await updateTransRef(ipDocEntry, req.body.incomingPayment?.TransferReference);
           console.log("*************CreditCard Management referenece************: ", responseTransRef)
