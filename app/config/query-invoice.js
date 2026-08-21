@@ -128,7 +128,8 @@ exports.getTimberItems =
   `SELECT DISTINCT I1."ItemCode", I1."WhsCode", I1."LineNum" + 1 AS "SNo", T9."BatchNum", 
     T9."Quantity" AS "SelectedQty", T25."U_Length", T25."U_Height", T25."U_Width",
     (T9."Quantity" / ((T25."U_Height" / 1000) * (T25."U_Width" / 1000) * T25."U_Length")) AS "NoofPieces",
-    ITM."ItemName" AS "Description", T10."WhsName", T10."Street", T10."Block", T10."City"
+    ITM."ItemName" AS "Description", T10."WhsName", T10."Street", T10."Block", T10."City",
+    I1."U_DeliveryApp"
       FROM ${dbCreds.CompanyDB}."IBT1" T9
       INNER JOIN ${dbCreds.CompanyDB}."OIBT" T25 
           ON T9."BatchNum" = T25."BatchNum" AND T25."ItemCode" = T9."ItemCode"
