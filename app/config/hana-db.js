@@ -330,7 +330,7 @@ WHERE A."OnHandQty">0`;
 
 //,B."U_ReservedFor"
 const serialForItemAndWH =
-  `SELECT A."ItemCode",A."WhsCode", C."BinCode", C."AbsEntry", B."DistNumber" AS "InternalSerialNumber",SUM(A."OnHandQty") "OnHandQty"
+  `SELECT A."ItemCode",A."WhsCode", C."BinCode", C."AbsEntry", B."DistNumber" AS "InternalSerialNumber", B."MnfSerial" AS "ManufacturerSerialNumber", SUM(A."OnHandQty") "OnHandQty"
 FROM ${dbCreds.CompanyDB}.OSBQ A 
   INNER JOIN ${dbCreds.CompanyDB}.OSRN B ON B."AbsEntry"=A."SnBMDAbs" AND A."ItemCode"=B."ItemCode" 
   INNER JOIN ${dbCreds.CompanyDB}.OBIN C ON C."AbsEntry"=A."BinAbs"
@@ -356,7 +356,7 @@ WHERE A."OnHandQty">0`
 
 //,B."U_ReservedFor"
 const getAllBinsForSerial =
-  `SELECT A."ItemCode", B."itemName" AS "ItemName", A."WhsCode",B."DistNumber" AS "InternalSerialNumber",A."OnHandQty",C."BinCode" AS "BinCode",
+  `SELECT A."ItemCode", B."itemName" AS "ItemName", A."WhsCode",B."DistNumber" AS "InternalSerialNumber", B."MnfSerial" AS "ManufacturerSerialNumber", A."OnHandQty",C."BinCode" AS "BinCode",
   C."AbsEntry" "BinAbsEntry", D."Location" "LocationCode", E."Location" "LocationName", B."InDate"
 FROM ${dbCreds.CompanyDB}.OSBQ A 
   INNER JOIN ${dbCreds.CompanyDB}.OSRN B ON B."AbsEntry"=A."SnBMDAbs" AND A."ItemCode"=B."ItemCode" 

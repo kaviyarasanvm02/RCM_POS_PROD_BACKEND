@@ -389,3 +389,24 @@ exports.getSalesEmployeeDiscount = (slpCode) => {
     return 0;
   }
 }
+
+/**
+ * Updates Manufacturer Serial Number (MnfSerial) in OSRN for a Serial Item
+ * @param {String} itemCode 
+ * @param {String} internalSerialNumber 
+ * @param {String} mfgSerialNumber 
+ */
+exports.updateMfgSerialNumber = (itemCode, internalSerialNumber, mfgSerialNumber) => {
+  try {
+    if (internalSerialNumber && mfgSerialNumber !== undefined && mfgSerialNumber !== null) {
+      const rows = dbHelper.executeWithValues(query.updateMfgSerialNumber, [mfgSerialNumber, internalSerialNumber, itemCode, itemCode]);
+      console.log(`[BACKEND] updateMfgSerialNumber result for ${internalSerialNumber} (${itemCode}):`, JSON.stringify(rows));
+      return true;
+    }
+    return null;
+  } catch (err) {
+    console.error(`[BACKEND] updateMfgSerialNumber error for ${internalSerialNumber}:`, err.message);
+    return null;
+  }
+}
+

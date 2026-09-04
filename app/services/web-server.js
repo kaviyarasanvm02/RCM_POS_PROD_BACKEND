@@ -21,6 +21,7 @@ const { sessionValidator } = require("../handler/session-handler");
 const businessPartnerServiceRoutes = require("../routes/business-partner-service-layer.routes.js");
 const cashDenominationRoutes = require("../routes/cash-denominations.routes");
 const creditCardRoutes = require("../routes/credit-card.routes");
+const voucherRoutes = require("../routes/voucher.routes.js");
 const invoiceRoutes = require("../routes/invoice.routes");
 const fircaRoutes = require("../routes/firca-routes");
 const invoiceServiceRoutes = require("../routes/invoice-service-layer.routes");
@@ -165,6 +166,7 @@ const startServer = () => {
     app.use(`${customBaseURI}/firca`, fircaRoutes);
     app.use(`${customBaseURI}/cash-denomination`, cashDenominationRoutes);
     app.use(`${customBaseURI}/credit-card`, creditCardRoutes);
+    app.use(`${customBaseURI}/voucher`, voucherRoutes);
     app.use(`${customBaseURI}/stock-transfer-request-new`, stockTransferRequestRoutes);
     app.use(`${customBaseURI}/sales-quotation`, salesQuotationRoutes);
     app.use(`${customBaseURI}/sale-order`, saleOrderRoutes);
